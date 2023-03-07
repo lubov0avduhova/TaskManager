@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petproject.petproject.HelloController">
+   <children>
+      <Button layoutX="84.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#addToList" onMouseEntered="#show" prefHeight="53.0" prefWidth="95.0" text="Add" />
+      <TreeView fx:id="treeView" layoutX="61.0" layoutY="100.0" prefHeight="277.0" prefWidth="368.0" />
+      <Button layoutX="429.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#removeFromList" prefHeight="53.0" prefWidth="105.0" text="Remove" />
+      <TextField fx:id="text" layoutX="192.0" layoutY="43.0" prefHeight="24.0" prefWidth="189.0" />
+   </children>
+</AnchorPane>
