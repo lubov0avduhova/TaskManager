@@ -1,4 +1,4 @@
-package petproject.petproject;
+package main.UI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
