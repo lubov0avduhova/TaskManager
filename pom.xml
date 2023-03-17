@@ -41,6 +41,14 @@
             <artifactId>spring-orm</artifactId>
             <version>6.0.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
 
         <!--dependencies of DB - Hibernate, PostgreSQL -->
         <dependency>
