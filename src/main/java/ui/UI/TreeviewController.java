@@ -5,7 +5,11 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import main.Repository.TaskDAO;
+import main.Repository.TaskDAOImpl;
+import main.ServiceEntity.Sprints.Tasks.Task;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 public class TreeviewController {
@@ -20,7 +24,8 @@ public class TreeviewController {
     @FXML
     public void showTasks(MouseEvent mouseEvent) {
         System.out.println("я в контроллере!");
-//        List<Task> theTasks = taskDAO.getTasks();
+        TaskDAO dao = new TaskDAOImpl();
+        List<Task> theTasks = dao.getTasks();
 //        treeItem = new TreeItem<>();
 //        treeView = new TreeView<>();
 //        for (Task task : theTasks) {

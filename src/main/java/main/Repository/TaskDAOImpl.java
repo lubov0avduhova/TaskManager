@@ -2,26 +2,26 @@ package main.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import main.ServiceEntity.Sprints.Tasks.Task;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class TaskDAOImpl{
+import java.util.List;
 
+@Repository
+public class TaskDAOImpl implements TaskDAO{
     @PersistenceContext
-    private EntityManager factory;
-
-    @Autowired
-    TaskDAO taskDAO;
-
+    private EntityManager entityManager;
 
     @Transactional
-    public void getTasks() {
-        System.out.println("я в TaskDao!");
+    @Override
+    public List<Task> getTasks() {
+        System.out.println("я в TASKDAOImpl");
+        System.out.println(entityManager.isOpen());
 //        TypedQuery<Task> theQuery =
-//                factory.createQuery("from Task", Task.class);
+//                entityManager.createQuery("from Task", Task.class);
 //        List<Task> tasks = theQuery.getResultList();
 //        return tasks;
+        return null;
     }
 }
