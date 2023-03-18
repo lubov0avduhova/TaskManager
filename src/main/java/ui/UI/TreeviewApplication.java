@@ -24,9 +24,8 @@ public class TreeviewApplication extends Application {
 //    }
 //
     public void start(Stage stage) throws IOException {
-        System.out.println("!!!!");
         applicationContext = SpringApplication.run(TaskManagerUIApplication.class);
-        FXMLLoader loader = new FXMLLoader(TaskManagerUIApplication.class.getResource("/hello-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(TaskManagerUIApplication.class.getResource("/test.fxml"));
         loader.setControllerFactory(applicationContext::getBean);
         Scene scene = new Scene(loader.load(), 800, 800, false, SceneAntialiasing.BALANCED);
 
