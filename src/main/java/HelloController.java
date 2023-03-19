@@ -1,4 +1,4 @@
-//package ui.UI;
+//package main.ui.UI;
 //
 //import javafx.application.Application;
 //import javafx.fxml.FXML;

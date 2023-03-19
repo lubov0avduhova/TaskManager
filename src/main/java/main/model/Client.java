@@ -1,4 +1,4 @@
-package ui.UI.model;
+package main.model;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package ui.UI.controllers;
+package main.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -8,10 +8,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.model.Client;
+import main.repo.ClientRepo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ui.UI.model.Client;
-import ui.UI.repo.ClientRepo;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,8 +19,8 @@ import java.util.ResourceBundle;
 @Component
 public class IndexController implements Initializable {
 
-    private ClientRepo clientRepo;
-    private String title;
+    private final ClientRepo clientRepo;
+    private final String title;
 
     @FXML
     private Label lblTitle;

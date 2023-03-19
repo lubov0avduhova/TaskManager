@@ -1,7 +1,8 @@
-package ui.UI;
+package main;
 
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import main.ui.TreeviewApplication;
 
 
 @SpringBootApplication

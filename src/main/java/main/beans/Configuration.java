@@ -1,4 +1,4 @@
-package ui.UI.beans;
+package main.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
