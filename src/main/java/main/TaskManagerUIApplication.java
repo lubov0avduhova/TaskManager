@@ -1,16 +1,17 @@
 package main;
 
 import javafx.application.Application;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import main.ui.TreeviewApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class TaskManagerUIApplication{
+public class TaskManagerUIApplication {
 
 
     public static void main(String[] args) {
-        Application.launch(TreeviewApplication.class, args);
+
+        System.out.println("я в main");Application.launch(TreeviewApplication.class, args);
     }
 
 

@@ -1,12 +1,14 @@
 package main.model;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Entity
 @Table
-public class Client {
+@Component
+public class Task {
 
     private int id;
     private String title;
@@ -16,7 +18,7 @@ public class Client {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    public Client() {
+    public Task() {
     }
 
     @Id

@@ -7,22 +7,27 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 import main.TaskManagerUIApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 public class TreeviewApplication extends Application {
-    public static ConfigurableApplicationContext applicationContext;
-    public static Parent rootNode;
-    public static Stage stage;
+    @Autowired
+    private ConfigurableApplicationContext applicationContext;
+
 
     public void start(Stage stage) throws IOException {
         applicationContext = SpringApplication.run(TaskManagerUIApplication.class);
-        FXMLLoader loader = new FXMLLoader(TaskManagerUIApplication.class.getResource("/UI/test.fxml"));
+        FXMLLoader loader = new FXMLLoader(TaskManagerUIApplication.class.getResource("/UI/main-window.fxml"));
         loader.setControllerFactory(applicationContext::getBean);
-        Scene scene = new Scene(loader.load(), 800, 800, false, SceneAntialiasing.BALANCED);
-
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
     }
