@@ -1,6 +1,8 @@
 package main.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -23,9 +25,10 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -63,14 +66,9 @@ public class Task {
         this.endDate = endDate;
     }
 
+
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+        return "Задача: " + title;
     }
 }

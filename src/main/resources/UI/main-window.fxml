@@ -68,6 +68,7 @@
         </menus>
       </MenuBar>
 <!--    <MenuBar fx:id="sprintsList" VBox.vgrow="NEVER">-->
+<!--    <MenuBar fx:id="sprintsList" VBox.vgrow="NEVER">-->
 <!--      <menus>-->
 <!--        <Menu mnemonicParsing="false" text="File">-->
 <!--          <items>-->
@@ -110,33 +111,33 @@
       <items>
         <AnchorPane>
                <children>
-                  <ListView fx:id="sprintsList" prefHeight="455.0" prefWidth="200.0" />
+                  <ListView prefHeight="455.0" prefWidth="200.0" />
                </children>
         </AnchorPane>
-      <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+      <AnchorPane id="Content" fx:id="taskPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
         <children>
           <Label alignment="CENTER" layoutX="30.0" layoutY="37.0" prefHeight="36.0" prefWidth="156.0" style="&#10;" text="Мой спринт" textAlignment="CENTER" wrapText="false">
                      <font>
-                <Font size="18.0" fx:id="x1" />
+                <Font size="18.0" />
                      </font>
                      <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                <Color red="0.624" green="0.624" blue="0.624" />
                      </textFill>
                   </Label>
                   <Label alignment="CENTER" layoutX="-22.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" style="&#10;" text="Моя цель:" textAlignment="CENTER" wrapText="false">
                      <font>
-                        <Font size="18.0" fx:id="x11" />
+                        <Font size="18.0" />
                      </font>
                      <textFill>
-                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                        <Color red="0.624" green="0.624" blue="0.624" />
                      </textFill>
                   </Label>
-                  <Label fx:id="aimUser" alignment="CENTER" layoutX="108.0" layoutY="4.0" prefHeight="51.0" prefWidth="391.0" style="&#10;" text="Text" textAlignment="CENTER" wrapText="false">
+                  <Label alignment="CENTER" layoutX="108.0" layoutY="4.0" prefHeight="51.0" prefWidth="391.0" style="&#10;" text="Text" textAlignment="CENTER" wrapText="false">
                      <font>
-                        <Font size="18.0" fx:id="x12" />
+                        <Font size="18.0" />
                      </font>
                      <textFill>
-                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
+                        <Color red="0.624" green="0.624" blue="0.624" />
                      </textFill>
                   </Label>
                   <ImageView fitHeight="80.0" fitWidth="507.0" layoutX="11.0" layoutY="-36.0" pickOnBounds="true" preserveRatio="true" />
@@ -144,13 +145,13 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                            <MenuItem fx:id="changeTask" mnemonicParsing="false" text="Изменить задачу" />
-                              <MenuItem fx:id="deleteTask" mnemonicParsing="false" text="Удалить задачу" />
+                            <MenuItem fx:id="changeTask" mnemonicParsing="false" onAction="#setTaskWindow" text="Изменить задачу" />
+                              <MenuItem fx:id="deleteTask" mnemonicParsing="false" onAction="#deleteTask" text="Удалить задачу" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
                   </ListView>
-                  <Hyperlink fx:id="taskHyberLink" cache="true" layoutX="11.0" layoutY="81.0" lineSpacing="5.0" onAction="#addNewTaskWindow" prefHeight="36.0" prefWidth="507.0" text="Hyperlink" underline="true" />
+                  <Hyperlink fx:id="taskHyberLink" cache="true" layoutX="11.0" layoutY="81.0" lineSpacing="5.0" onAction="#setTaskWindow" prefHeight="36.0" prefWidth="507.0" text="Hyperlink" underline="true" />
         </children>
       </AnchorPane>
       </items>
