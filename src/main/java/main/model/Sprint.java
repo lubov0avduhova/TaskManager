@@ -2,34 +2,30 @@ package main.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "task")
-@DynamicUpdate
-public class Task {
-
+@Table(name = "sprint")
+public class Sprint {
     private int id;
     private String title;
-    private String description;
-
     private LocalDate startDate;
-
     private LocalDate endDate;
 
-    private Sprint sprint;
-
+    private Aim aim;
     @ManyToOne(fetch = FetchType.LAZY)
-    public Sprint getSprint() {
-        return sprint;
+    public Aim getAim() {
+        return aim;
     }
 
-    public void setSprint(Sprint sprint) {
-        this.sprint = sprint;
+    public void setAim(Aim aim) {
+        this.aim = aim;
     }
 
-    public Task() {
+    public Sprint() {
     }
 
     @Id
@@ -38,25 +34,17 @@ public class Task {
         return id;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
 
+    @Column
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Column(name = "start_date")
@@ -77,9 +65,8 @@ public class Task {
         this.endDate = endDate;
     }
 
-
     @Override
     public String toString() {
-        return "Задача: " + title + "\n\n"+"Дедлайн "+ endDate;
+        return title;
     }
 }

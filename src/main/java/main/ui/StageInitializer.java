@@ -1,9 +1,6 @@
 package main.ui;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.TaskManagerUIApplication;
 import main.controllers.MainController;
@@ -28,7 +25,7 @@ public class StageInitializer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-     mainController.setMainWindow(context, stage);
+        mainController.setMainWindow(context, stage);
     }
 
 
