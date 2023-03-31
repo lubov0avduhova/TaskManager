@@ -8,23 +8,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import main.controllers.Sprint.DeleteSprint;
 import main.controllers.Sprint.SprintWindowController;
-import main.controllers.Task.DeleteTask;
 import main.controllers.Task.TaskWindowController;
+import main.model.Aim;
+import main.model.Prog;
 import main.model.Sprint;
 import main.model.Task;
-import main.repo.SprintRepo;
-import main.repo.TaskRepo;
+import main.repo.MainRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -50,21 +45,38 @@ public class MainController implements Initializable {
     }
 
     protected ConfigurableApplicationContext context;
-    protected TaskRepo taskRepo;
-    protected SprintRepo sprintRepo;
+
+    //  protected SprintRepo sprintRepo;
     protected String title;
     protected SprintWindowController sprintWindowController;
+    private AimController aimController;
+
+    private MainRepo mainRepo;
+//    private Prog aim;
+//    private Prog sprint;
+//    private Prog task;
+
+    private TaskWindowController taskWindowController;
+    private TaskSprintController taskSprintController;
 
     @Autowired
-    public MainController(@Qualifier("taskRepo") TaskRepo taskRepo,
-                          @Qualifier("sprintRepo") SprintRepo sprintRepo,
-                          ConfigurableApplicationContext context,
-                          SprintWindowController sprintWindowController) {
-        this.taskRepo = taskRepo;
-        this.sprintRepo = sprintRepo;
+    public MainController(ConfigurableApplicationContext context,
+                          SprintWindowController sprintWindowController,
+                          TaskWindowController taskWindowController,
+                          AimController aimController,
+                          @Qualifier("mainRepo") MainRepo mainRepo,
+                          TaskSprintController taskSprintController) {
+        //this.sprintRepo = sprintRepo;
         this.context = context;
         this.sprintWindowController = sprintWindowController;
-        taskListView = new ListView<>();
+        this.taskWindowController = taskWindowController;
+        //  taskListView = new ListView<>();
+        this.aimController = aimController;
+        this.mainRepo = mainRepo;
+        this.taskSprintController = taskSprintController;
+//        this.aim = aim;
+//        this.sprint = sprint;
+//        this.task = task;
     }
 
     public MainController() {
@@ -75,104 +87,92 @@ public class MainController implements Initializable {
     }
 
 
+    //изменить спринт по названию
     @FXML
-    void setSprintWindow(ActionEvent event) throws IOException {
-        int temp = sprintListView.getSelectionModel().getSelectedIndex();
-        sprintWindowController.setSprintFields(sprintListView, temp);
-        sprintWindowController.addSprint();
+    private void editSprint(MouseEvent mouse) throws IOException {
+        // sprintWindowController.addSprint();
     }
 
     @FXML
     void deleteSprint(ActionEvent event) {
-        DeleteSprint deleteSprint = new DeleteSprint();
-        deleteSprint.deleteSprint(sprintListView, taskListView);
+        //     DeleteSprint deleteSprint = new DeleteSprint();
+        //   deleteSprint.deleteSprint(sprintListView, sprintRepo);
     }
 
-
-    //изменить спринт по названию
     @FXML
-    private void editSprint(MouseEvent mouse) {
-//        EditSprint editSprint = new EditSprint();
-//        editSprint.editSprint(sprintListView, sprintRepo);
-    }
-
-
-    //блок, где все работает. Не трогать!!!!
-
-    @FXML
-    void deleteTask(ActionEvent event) {
-        DeleteTask deleteTask = new DeleteTask();
-        deleteTask.deleteTask(taskListView, taskRepo);
+    void setSprintWindow(ActionEvent event) throws IOException {
+        Sprint sprint = sprintListView.getSelectionModel().getSelectedItem();
+        Aim aim = new Aim();
+      //  taskSprintController.setWindow(sprint, aim);//с aim могут быть проблемы!
     }
 
     @FXML
     public void setTaskWindow(ActionEvent event) throws IOException {
-        String url = "/UI/task-window.fxml";
-        Stage stage = new Stage();
-        FXMLLoader loader = setWindow(stage, url);
-        TaskWindowController taskWindowController = loader.getController();
-        Sprint temp = sprintListView.getSelectionModel().getSelectedItem();
-        if(temp == null){
-            temp = sprintListView.getItems().get(0);
+        Sprint sprint = sprintListView.getSelectionModel().getSelectedItem();
+        Task task = taskListView.getSelectionModel().getSelectedItem();
+
+
+        taskSprintController.setParentTemp((sprint == null)
+                ? sprintListView.getItems().get(0) : sprint);
+        taskSprintController.setChildTemp((task == null) ? new Task() : task);
+
+
+        taskSprintController.setWindow();
+
+        if (taskListView.getItems().contains(taskSprintController.getChildTemp())) {
+            int temp = taskListView.getItems().indexOf(taskSprintController.getChildTemp());
+            taskListView.getItems().set(temp, (Task) taskSprintController.getChildTemp());
+            System.out.println("я в майне - обновляю задачу в список");
+            for (Task task1: taskListView.getItems()) {
+                System.out.println(task1.getTitle());
+            }
+
+        } else {
+
+            taskListView.getItems().add((Task) taskSprintController.getChildTemp());
         }
-        taskWindowController.initialize(taskListView.getSelectionModel().getSelectedItem(), temp);
-        stage.showAndWait();
+        taskSprintController.getDialog().close();
     }
+
+
+    @FXML
+    void deleteTask(ActionEvent event) {
+        Task task = taskListView.getSelectionModel().getSelectedItem();
+
+        mainRepo.deleteById(task.getId());
+        taskListView.getItems().remove(task);
+    }
+
+
+    //работает!
 
     public void setMainWindow(ConfigurableApplicationContext context, Stage stage) throws IOException {
         String url = "/UI/main-window.fxml";
-        setWindow(stage, url);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
+        loader.setControllerFactory(context::getBean);
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
     public void setTaskListView(MouseEvent event) {
         Sprint temp = sprintListView.getSelectionModel().getSelectedItem();
-       // if (temp.getTaskList() != null) {
+        if (temp != null) {
             taskListView.getItems().clear();
-       // }
-        taskListView.getItems().addAll(taskRepo.findAllById(temp.getId()));
-    }
-
-
-    private void initSprint() {
-
-        sprintListView.setCellFactory(param -> {
-            TextFieldListCell<Sprint> cell = new TextFieldListCell<Sprint>();
-            cell.setConverter(new StringConverter<Sprint>() {
-                @Override
-                public String toString(Sprint object) {
-                    return object.getTitle();
-                }
-
-                @Override
-                public Sprint fromString(String string) {
-                    Sprint sprint = cell.getItem();
-                    sprint.setTitle(string);
-                    return sprint;
-                }
-            });
-            return cell;
-        });
-        sprintListView.setEditable(true);
-
-    }
-
-    private FXMLLoader setWindow(Stage stage, String url) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
-        loader.setControllerFactory(context::getBean);
-        Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        return loader;
+        }
+        taskListView.getItems().addAll(mainRepo.findAllTasks(temp.getId()));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sprintListView.setItems(FXCollections.observableList((sprintRepo.findAll())));
-        initSprint();
-        Sprint temp = sprintListView.getItems().get(0);
-        List tempList = taskRepo.findAllById(temp.getId());
+        sprintListView.setItems(FXCollections.observableList((mainRepo.findAllSprints())));
+        Prog temp = sprintListView.getItems().get(0);
+        List tempList = mainRepo.findAllTasks(temp.getId());
         taskListView.getItems().addAll(tempList);
+
+        sprintWindowController.initSprint(sprintListView);
+        taskWindowController.initTask(taskListView);
     }
 }
 

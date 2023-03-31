@@ -127,8 +127,9 @@
                      <textFill>
                 <Color red="0.624" green="0.624" blue="0.624" />
                      </textFill>
+
                   </Label>
-                  <Hyperlink layoutX="35.0" layoutY="43.0" prefHeight="22.0" prefWidth="143.0" text="Добавить спринт" />
+                  <Hyperlink layoutX="35.0" layoutY="43.0" onAction="#setSprintWindow" prefHeight="22.0" prefWidth="143.0" text="Добавить спринт" />
                </children>
         </AnchorPane>
       <AnchorPane id="Content" fx:id="taskPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
@@ -155,12 +156,12 @@
                         <ContextMenu>
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#setTaskWindow" text="Изменить задачу" />
-                              <MenuItem fx:id="deleteTask" mnemonicParsing="false" onAction="#deleteTask" text="Удалить задачу" />
+                              <MenuItem mnemonicParsing="false" onAction="#deleteTask" text="Удалить задачу" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
                   </ListView>
-                  <Hyperlink fx:id="taskHyberLink" cache="true" layoutX="11.0" layoutY="81.0" lineSpacing="5.0" onAction="#setTaskWindow" prefHeight="36.0" prefWidth="507.0" text="Добавить задачу" underline="true" />
+                  <Hyperlink cache="true" layoutX="11.0" layoutY="81.0" lineSpacing="5.0" onAction="#setTaskWindow" prefHeight="36.0" prefWidth="507.0" text="Добавить задачу" underline="true" />
         </children>
       </AnchorPane>
       </items>

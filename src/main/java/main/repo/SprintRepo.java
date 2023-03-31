@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-@Qualifier("sprintRepo")
-public interface SprintRepo extends JpaRepository<Sprint, Integer> {
+//@Repository
+//@Qualifier("sprintRepo")
+//public interface SprintRepo extends MainRepo, JpaRepository<Sprint, Integer> {
 
 
 //
@@ -22,4 +22,4 @@ public interface SprintRepo extends JpaRepository<Sprint, Integer> {
 //    @Query(value = "DELETE from sprint where = :id", nativeQuery = true)
 //    @Override
 //    void deleteById(Integer integer);
-}
+//}

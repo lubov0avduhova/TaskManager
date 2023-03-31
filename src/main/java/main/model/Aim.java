@@ -1,37 +1,29 @@
 package main.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "aim")
-public class Aim {
-    private int id;
-    private String title;
+@DiscriminatorValue("Aim")
+@DynamicUpdate
+public class Aim extends Prog{
+    private Prog prog;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Prog getProg() {
+        return prog;
+    }
+
+    public void setProg(Prog prog) {
+        this.prog = prog;
+    }
 
     public Aim() {
+
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Column
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
 }
